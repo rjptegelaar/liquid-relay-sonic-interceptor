@@ -45,6 +45,52 @@
 		</plugins>
 	</build>
   
+  <dependencies>  
+  		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+  		<dependency>
+  			<groupId>com.sonicsw</groupId>
+			<artifactId>xq_core</artifactId>
+			<version>8.0</version>		
+  		</dependency>
+  		<dependency>
+			<groupId>com.pte.liquid</groupId>
+			<artifactId>RelayInterfaces</artifactId>
+			<version>0.0.7</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/RelayInterfaces-0.0.7.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.pte.liquid</groupId>
+			<artifactId>RelayApi</artifactId>
+			<version>0.0.3</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/RelayApi-0.0.3.jar</systemPath>
+		</dependency>
+  </dependencies>
+  
+  <properties>
+		<spring.version>3.0.4.RELEASE</spring.version>
+		<junit.version>4.8.1</junit.version>
+		<log4j.version>1.2.17</log4j.version>
+		<activemq.version>5.7.0</activemq.version>
+		<xbean.version>3.14</xbean.version>
+	</properties>
+  
   	<distributionManagement>
 		<repository>
 			<id>pte-releases</id>
