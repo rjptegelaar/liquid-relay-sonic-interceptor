@@ -70,9 +70,9 @@
   		<dependency>
 			<groupId>com.pte.liquid</groupId>
 			<artifactId>RelayInterfaces</artifactId>
-			<version>0.0.7</version>
+			<version>0.0.8</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/RelayInterfaces-0.0.7.jar</systemPath>
+			<systemPath>${project.basedir}/lib/RelayInterfaces-0.0.8.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.pte.liquid</groupId>
