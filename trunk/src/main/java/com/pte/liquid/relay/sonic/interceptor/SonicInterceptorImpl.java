@@ -20,6 +20,7 @@ package com.pte.liquid.relay.sonic.interceptor;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -33,39 +34,47 @@ import com.pte.liquid.relay.model.Message;
 import com.sonicsw.xq.XQAddress;
 import com.sonicsw.xq.XQConstants;
 import com.sonicsw.xq.XQEnvelope;
+import com.sonicsw.xq.XQInitContext;
+import com.sonicsw.xq.XQLog;
 import com.sonicsw.xq.XQMessage;
 import com.sonicsw.xq.XQMessageException;
 import com.sonicsw.xq.XQParameters;
 import com.sonicsw.xq.XQServiceContext;
+import com.sonicsw.xqimpl.util.log.XQLogImpl;
 
 public class SonicInterceptorImpl implements MethodInterceptor{
 
 	private Transport transport;
 	private Converter<XQMessage> converter;
+	private XQLog logger;
 	
 	public SonicInterceptorImpl(){
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("com.pte.liquid.relay.sonic/application-context.xml");
-        
+		logger = XQLogImpl.getInstance();
+		logger.logInformation("Init Liquid interceptor.");
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext("com.pte.liquid.relay.sonic/application-context.xml");        
 		transport = (Transport) appCtx.getBean("relayApiJmsTransport");
+		if(transport!=null)
+			logger.logInformation("Done initializing transport.");
 		converter = (Converter<XQMessage>) appCtx.getBean("relaySonicConverter");
+			logger.logInformation("Done initializing converter.");
+		logger.logInformation("Done init Liquid interceptor.");
 	}
 	
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		Method method = invocation.getMethod();
 		Object args[] = invocation.getArguments();
-		String name = method.getName();
-
+		String name = method.getName();		
+		
 		if (name.equals("service")) {
 			return adviseService(invocation, (XQServiceContext) args[0]);
 		}else
 			return invocation.proceed();
 		}
 
-
 	public Object adviseService(MethodInvocation invocation,
 			XQServiceContext context) throws Throwable {
-		
+		logger.logInformation("Service call.");
 		Object rval = null;
 		XQMessage message = null;
 		String correlationID = "";		
@@ -75,15 +84,21 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 			if (context != null) {
 				try {
 					message = context.getFirstIncoming().getMessage();
-					correlationID = determineCorrelation(context, message);					
+					Logger.getAnonymousLogger().info("Got message.");
+					correlationID = determineCorrelation(context, message);
+					Logger.getAnonymousLogger().info("Got correlationID: " + correlationID);
 					setCorrelationID(correlationID, context, message);
+					Logger.getAnonymousLogger().info("Set correlationID.");
 					Message preMsg = converter.convert(message);
+					Logger.getAnonymousLogger().info("Got good message.");
 					preMsg.setCorrelationID(correlationID);
+					Logger.getAnonymousLogger().info("Set correlationID on message.");
 					preMsg.setLocation(determineLocation(context.getParameters()));
-					
+					Logger.getAnonymousLogger().info("Got location.");
 					transport.send(preMsg);
 					
 				} catch (Exception e) {
+					Logger.getAnonymousLogger().info(e.getMessage());
 					//Empty by design
 				}
 
@@ -147,7 +162,6 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 		sb.append(getProcessName(params));
 		sb.append(Constants.LOCATION_SEPERATOR);
 		sb.append(getServiceName(params));
-		sb.append(Constants.LOCATION_SEPERATOR);
 		
 		return sb.toString();
 	}
