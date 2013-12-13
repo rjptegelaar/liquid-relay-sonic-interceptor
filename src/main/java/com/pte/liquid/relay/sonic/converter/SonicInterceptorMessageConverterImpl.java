@@ -17,6 +17,7 @@
  */
 package com.pte.liquid.relay.sonic.converter;
 
+import java.util.Date;
 import java.util.Iterator;
 
 import com.pte.liquid.relay.Converter;
@@ -47,7 +48,8 @@ public class SonicInterceptorMessageConverterImpl implements Converter<XQMessage
             if(label==null || "".equals(label))
             	label = "PART_" + i;
             
-            newMsg.createPart(label, content);                                                                                		
+            newMsg.createPart(label, content);     
+            newMsg.setSnapshotTime(new Date());
             
         }
 		
@@ -56,7 +58,15 @@ public class SonicInterceptorMessageConverterImpl implements Converter<XQMessage
 	    	while (xqMsgHeaders.hasNext()) {
 	    		String xqMsgHeader = xqMsgHeaders.next();	    		
 	    		if(xqMsgHeader!=null){
-	    			newMsg.setHeader(xqMsgHeader, xqMsg.getStringHeader(xqMsgHeader));
+	    			
+	    			Object headerValue = xqMsg.getHeaderValue(xqMsgHeader);
+	    			if(!(headerValue instanceof String)){	    					    				
+	    				newMsg.setHeader(xqMsgHeader, headerValue.toString());
+	    			}else{
+	    				newMsg.setHeader(xqMsgHeader, (String)headerValue);
+	    			}
+	    			
+	    			
 	    		}
 	    	}			
 		}
