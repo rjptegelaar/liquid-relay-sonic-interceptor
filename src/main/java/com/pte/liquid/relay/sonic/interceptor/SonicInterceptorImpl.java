@@ -20,7 +20,6 @@ package com.pte.liquid.relay.sonic.interceptor;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -34,7 +33,6 @@ import com.pte.liquid.relay.model.Message;
 import com.sonicsw.xq.XQAddress;
 import com.sonicsw.xq.XQConstants;
 import com.sonicsw.xq.XQEnvelope;
-import com.sonicsw.xq.XQInitContext;
 import com.sonicsw.xq.XQLog;
 import com.sonicsw.xq.XQMessage;
 import com.sonicsw.xq.XQMessageException;
@@ -54,9 +52,9 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("com.pte.liquid.relay.sonic/application-context.xml");        
 		transport = (Transport) appCtx.getBean("relayApiJmsTransport");
 		if(transport!=null)
-			logger.logInformation("Done initializing transport.");
+		logger.logInformation("Done initializing transport.");
 		converter = (Converter<XQMessage>) appCtx.getBean("relaySonicConverter");
-			logger.logInformation("Done initializing converter.");
+		logger.logInformation("Done initializing converter.");
 		logger.logInformation("Done init Liquid interceptor.");
 	}
 	
@@ -74,7 +72,6 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 
 	public Object adviseService(MethodInvocation invocation,
 			XQServiceContext context) throws Throwable {
-		logger.logInformation("Service call.");
 		Object rval = null;
 		XQMessage message = null;
 		String correlationID = "";		
@@ -83,22 +80,15 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 			
 			if (context != null) {
 				try {
-					message = context.getFirstIncoming().getMessage();
-					Logger.getAnonymousLogger().info("Got message.");
+					message = context.getFirstIncoming().getMessage();					
 					correlationID = determineCorrelation(context, message);
-					Logger.getAnonymousLogger().info("Got correlationID: " + correlationID);
 					setCorrelationID(correlationID, context, message);
-					Logger.getAnonymousLogger().info("Set correlationID.");
 					Message preMsg = converter.convert(message);
-					Logger.getAnonymousLogger().info("Got good message.");
 					preMsg.setCorrelationID(correlationID);
-					Logger.getAnonymousLogger().info("Set correlationID on message.");
 					preMsg.setLocation(determineLocation(context.getParameters()));
-					Logger.getAnonymousLogger().info("Got location.");
 					transport.send(preMsg);
 					
 				} catch (Exception e) {
-					Logger.getAnonymousLogger().info(e.getMessage());
 					//Empty by design
 				}
 
