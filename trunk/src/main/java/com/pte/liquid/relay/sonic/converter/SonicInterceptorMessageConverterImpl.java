@@ -19,6 +19,9 @@ package com.pte.liquid.relay.sonic.converter;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.logging.Logger;
+
+import javax.jms.Destination;
 
 import com.pte.liquid.relay.Converter;
 import com.pte.liquid.relay.exception.RelayException;
@@ -60,10 +63,10 @@ public class SonicInterceptorMessageConverterImpl implements Converter<XQMessage
 	    		if(xqMsgHeader!=null){
 	    			
 	    			Object headerValue = xqMsg.getHeaderValue(xqMsgHeader);
-	    			if(!(headerValue instanceof String)){	    					    				
-	    				newMsg.setHeader(xqMsgHeader, headerValue.toString());
+	    			if((headerValue instanceof Destination)){	    					    				
+	    				newMsg.setHeader(xqMsgHeader, headerValue.toString());	    					    				
 	    			}else{
-	    				newMsg.setHeader(xqMsgHeader, (String)headerValue);
+	    				newMsg.setHeader(xqMsgHeader, xqMsg.getStringHeader(xqMsgHeader));
 	    			}
 	    			
 	    			
