@@ -42,9 +42,14 @@ import com.sonicsw.xqimpl.util.log.XQLogImpl;
 
 public class SonicInterceptorImpl implements MethodInterceptor{
 
+	private final static String PARENT_ID_PROPERTY_NAME = "liquid_parent_id";
+	private final static String ORDER_PROPERTY_NAME = "liquid_message_order";
+	private final static String ESB_TYPE_PROPERTY_NAME = "liquid_esb_type";
+	private final static String ESB_TYPE_PROPERTY_VALUE = "SONIC";
+	
 	private Transport transport;
 	private Converter<XQMessage> converter;
-	private XQLog logger;
+	private XQLog logger;				
 	
 	public SonicInterceptorImpl(){
 		logger = XQLogImpl.getInstance();
@@ -74,18 +79,45 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 			XQServiceContext context) throws Throwable {
 		Object rval = null;
 		XQMessage message = null;
-		String correlationID = "";		
+		String correlationID = "";
 		
 		try {
 			
 			if (context != null) {
 				try {
 					message = context.getFirstIncoming().getMessage();					
+					
+					//Set correlation ID on inflight message
 					correlationID = determineCorrelation(context, message);
 					setCorrelationID(correlationID, context, message);
+					
+					//Set order on inflight message
+					int order = determineOrder(context, message);
+					setOrder(order, context, message);
+										
 					Message preMsg = converter.convert(message);
+
+					//Set parent ID on log message
+					String parentID = determineParent(context, message);					
+					preMsg.setSystemHeader(ESB_TYPE_PROPERTY_NAME, parentID);
+					
+					//Set new parent ID on inflight message
+					String messageID = preMsg.getId();
+					setParentID(messageID, context, message);
+					
+					//Set correlation ID on log message
 					preMsg.setCorrelationID(correlationID);
+					
+					//Set location on log message
 					preMsg.setLocation(determineLocation(context.getParameters()));
+					
+					//Set order on log message
+					preMsg.setSystemHeader(ORDER_PROPERTY_NAME,Integer.toString(order));
+					
+					//Set ESB type
+					preMsg.setSystemHeader(ESB_TYPE_PROPERTY_NAME, ESB_TYPE_PROPERTY_VALUE);
+					
+					
 					transport.send(preMsg);
 					
 				} catch (Exception e) {
@@ -134,7 +166,8 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 	}
 
 	private String getServiceName(XQParameters params){			
-		return params.getParameter(XQConstants.PARAM_SERVICE_NAME,	XQConstants.PARAM_STRING);		
+		return params.getParameter(XQConstants.PARAM_PROCESS_STEP,	XQConstants.PARAM_STRING);		
+		
 	}
 
 	private String getProcessName(XQParameters params){			
@@ -162,20 +195,43 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 		if(context!=null && message!=null){
 			if(message.containsHeader(Constants.CORRELATION_ID_PROPERTY_NAME)){
 				correlationId = message.getStringHeader(Constants.CORRELATION_ID_PROPERTY_NAME);
-			}else if(context.getProcessContext().getInflightProperties().containsKey(Constants.CORRELATION_ID_PROPERTY_NAME)){
-				correlationId = message.getStringHeader(context.getProcessContext().getInflightProperties().getProperty(Constants.CORRELATION_ID_PROPERTY_NAME));
-			}else{
+			} else {
 				correlationId = UUID.randomUUID().toString();
 			}
-			
 		}	
 		return correlationId;
 	}
 	
-	private void setCorrelationID(String correlationID, XQServiceContext context, XQMessage message) throws XQMessageException{
-		context.getProcessContext().getInflightProperties().setProperty(Constants.CORRELATION_ID_PROPERTY_NAME, correlationID);
-		message.setStringHeader(Constants.CORRELATION_ID_PROPERTY_NAME, correlationID);
-		
+	private int determineOrder(XQServiceContext context, XQMessage message) throws XQMessageException{
+		int order = 0;	
+		if(context!=null && message!=null){
+			if(message.containsHeader(ORDER_PROPERTY_NAME)){
+				order = message.getIntHeader(ORDER_PROPERTY_NAME);
+			}			
+		}	
+		return order;
+	}
+	
+	private String determineParent(XQServiceContext context, XQMessage message) throws XQMessageException{
+		String parentID = "";	
+		if(context!=null && message!=null){
+			if(message.containsHeader(PARENT_ID_PROPERTY_NAME)){
+				parentID = message.getStringHeader(PARENT_ID_PROPERTY_NAME);
+			}			
+		}	
+		return parentID;
+	}
+	
+	private void setCorrelationID(String correlationID, XQServiceContext context, XQMessage message) throws XQMessageException{		
+		message.setStringHeader(Constants.CORRELATION_ID_PROPERTY_NAME, correlationID);		
+	}
+	
+	private void setOrder(int order, XQServiceContext context, XQMessage message) throws XQMessageException{		
+		message.setIntHeader(ORDER_PROPERTY_NAME, order + 1);		
+	}
+	
+	private void setParentID(String parentID, XQServiceContext context, XQMessage message) throws XQMessageException{		
+		message.setStringHeader(PARENT_ID_PROPERTY_NAME, parentID);		
 	}
 	
 }
