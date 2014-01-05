@@ -117,6 +117,7 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 					//Set ESB type
 					preMsg.setSystemHeader(ESB_TYPE_PROPERTY_NAME, ESB_TYPE_PROPERTY_VALUE);
 					
+					logger.logInformation(preMsg.toString());
 					
 					transport.send(preMsg);
 					
