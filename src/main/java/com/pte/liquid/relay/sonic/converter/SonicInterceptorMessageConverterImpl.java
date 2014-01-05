@@ -32,6 +32,8 @@ import com.sonicsw.xq.XQPart;
 
 public class SonicInterceptorMessageConverterImpl implements Converter<XQMessage> {
 
+
+	
 	public Message convert(XQMessage xqMsg) throws RelayException {		
 		try {
 			return convertXQMessage(xqMsg);
