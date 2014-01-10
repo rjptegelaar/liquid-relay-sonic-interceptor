@@ -99,7 +99,7 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 
 					//Set parent ID on log message
 					String parentID = determineParent(context, message);					
-					preMsg.setSystemHeader(ESB_TYPE_PROPERTY_NAME, parentID);
+					preMsg.setSystemHeader(PARENT_ID_PROPERTY_NAME, parentID);
 					
 					//Set new parent ID on inflight message
 					String messageID = preMsg.getId();
