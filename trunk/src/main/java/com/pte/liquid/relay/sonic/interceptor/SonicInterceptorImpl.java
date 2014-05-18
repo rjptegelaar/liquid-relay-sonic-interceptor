@@ -42,9 +42,7 @@ import com.sonicsw.xqimpl.util.log.XQLogImpl;
 
 public class SonicInterceptorImpl implements MethodInterceptor{
 
-	private final static String PARENT_ID_PROPERTY_NAME = "liquid_parent_id";
-	private final static String ORDER_PROPERTY_NAME = "liquid_message_order";
-	private final static String ESB_TYPE_PROPERTY_NAME = "liquid_esb_type";
+
 	private final static String ESB_TYPE_PROPERTY_VALUE = "SONIC";
 	
 	private Transport transport;
@@ -99,7 +97,7 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 
 					//Set parent ID on log message
 					String parentID = determineParent(context, message);					
-					preMsg.setSystemHeader(PARENT_ID_PROPERTY_NAME, parentID);
+					preMsg.setSystemHeader(Constants.PARENT_ID_PROPERTY_NAME, parentID);
 					
 					//Set new parent ID on inflight message
 					String messageID = preMsg.getId();
@@ -112,10 +110,10 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 					preMsg.setLocation(determineLocation(context.getParameters()));
 					
 					//Set order on log message
-					preMsg.setSystemHeader(ORDER_PROPERTY_NAME,Integer.toString(order));
+					preMsg.setSystemHeader(Constants.ORDER_PROPERTY_NAME,Integer.toString(order));
 					
 					//Set ESB type
-					preMsg.setSystemHeader(ESB_TYPE_PROPERTY_NAME, ESB_TYPE_PROPERTY_VALUE);
+					preMsg.setSystemHeader(Constants.ESB_TYPE_PROPERTY_NAME, ESB_TYPE_PROPERTY_VALUE);
 					
 					logger.logInformation(preMsg.toString());
 					
@@ -206,8 +204,8 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 	private int determineOrder(XQServiceContext context, XQMessage message) throws XQMessageException{
 		int order = 0;	
 		if(context!=null && message!=null){
-			if(message.containsHeader(ORDER_PROPERTY_NAME)){
-				order = message.getIntHeader(ORDER_PROPERTY_NAME);
+			if(message.containsHeader(Constants.ORDER_PROPERTY_NAME)){
+				order = message.getIntHeader(Constants.ORDER_PROPERTY_NAME);
 			}			
 		}	
 		return order;
@@ -216,8 +214,8 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 	private String determineParent(XQServiceContext context, XQMessage message) throws XQMessageException{
 		String parentID = "";	
 		if(context!=null && message!=null){
-			if(message.containsHeader(PARENT_ID_PROPERTY_NAME)){
-				parentID = message.getStringHeader(PARENT_ID_PROPERTY_NAME);
+			if(message.containsHeader(Constants.PARENT_ID_PROPERTY_NAME)){
+				parentID = message.getStringHeader(Constants.PARENT_ID_PROPERTY_NAME);
 			}			
 		}	
 		return parentID;
@@ -228,11 +226,11 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 	}
 	
 	private void setOrder(int order, XQServiceContext context, XQMessage message) throws XQMessageException{		
-		message.setIntHeader(ORDER_PROPERTY_NAME, order + 1);		
+		message.setIntHeader(Constants.ORDER_PROPERTY_NAME, order + 1);		
 	}
 	
 	private void setParentID(String parentID, XQServiceContext context, XQMessage message) throws XQMessageException{		
-		message.setStringHeader(PARENT_ID_PROPERTY_NAME, parentID);		
+		message.setStringHeader(Constants.PARENT_ID_PROPERTY_NAME, parentID);		
 	}
 	
 }

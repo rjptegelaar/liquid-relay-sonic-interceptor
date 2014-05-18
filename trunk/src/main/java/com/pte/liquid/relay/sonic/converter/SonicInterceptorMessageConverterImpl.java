@@ -19,7 +19,6 @@ package com.pte.liquid.relay.sonic.converter;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import javax.jms.Destination;
 
