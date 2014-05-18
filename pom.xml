@@ -2,14 +2,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.pte.liquid.relay</groupId>
   <artifactId>liquid-relay-sonic-interceptor</artifactId>
-  <version>0.0.6</version>
+  <version>0.0.7-SNAPSHOT</version>
   <name>liquid-relay-sonic-interceptor</name>
   <url>http://www.paultegelaar.nl</url>
   
   	<scm>
-		<connection>scm:svn:https://liquid-relay-sonic-interceptor.googlecode.com/svn/tags/liquid-relay-sonic-interceptor-0.0.6</connection>
-		<developerConnection>scm:svn:https://liquid-relay-sonic-interceptor.googlecode.com/svn/tags/liquid-relay-sonic-interceptor-0.0.6</developerConnection>
-		<url>https://liquid-relay-sonic-interceptor.googlecode.com/svn/tags/liquid-relay-sonic-interceptor-0.0.6</url>
+		<connection>scm:svn:https://liquid-relay-sonic-interceptor.googlecode.com/svn/trunk/</connection>
+		<developerConnection>scm:svn:https://liquid-relay-sonic-interceptor.googlecode.com/svn/trunk/</developerConnection>
+		<url>https://liquid-relay-sonic-interceptor.googlecode.com/svn/trunk/</url>
 	</scm>
   <build>
 		<plugins>
