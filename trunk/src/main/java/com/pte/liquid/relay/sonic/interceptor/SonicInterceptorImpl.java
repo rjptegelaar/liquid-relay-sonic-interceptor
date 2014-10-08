@@ -11,7 +11,6 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-
 package com.pte.liquid.relay.sonic.interceptor;
 
 import java.lang.reflect.Method;
@@ -48,14 +47,14 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 	
 	public SonicInterceptorImpl(){
 		logger = XQLogImpl.getInstance();
-		logger.logInformation("Init Liquid interceptor.");
+		logger.logDebug("Init Liquid interceptor.");
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("com.pte.liquid.relay.sonic/application-context.xml");        
-		transport = (Transport) appCtx.getBean("relayApiJmsTransport");
+		transport = (Transport) appCtx.getBean("relayApiStompTransport");
 		if(transport!=null)
-		logger.logInformation("Done initializing transport.");
+		logger.logDebug("Done initializing transport.");
 		converter = (Converter<XQMessage>) appCtx.getBean("relaySonicConverter");
-		logger.logInformation("Done initializing converter.");
-		logger.logInformation("Done init Liquid interceptor.");
+		logger.logDebug("Done initializing converter.");
+		logger.logDebug("Done init Liquid interceptor.");
 	}
 	
 	@Override

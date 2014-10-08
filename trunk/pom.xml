@@ -1,17 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.pte.liquid.relay</groupId>
-  <artifactId>liquid-relay-sonic-interceptor</artifactId>
-  <version>0.0.7-SNAPSHOT</version>
-  <name>liquid-relay-sonic-interceptor</name>
-  <url>http://www.paultegelaar.nl</url>
-  
-  	<scm>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.pte.liquid.relay</groupId>
+	<artifactId>liquid-relay-sonic-interceptor</artifactId>
+	<version>0.0.7-SNAPSHOT</version>
+	<name>liquid-relay-sonic-interceptor</name>
+	<url>http://www.paultegelaar.nl</url>
+
+	<scm>
 		<connection>scm:svn:https://liquid-relay-sonic-interceptor.googlecode.com/svn/trunk/</connection>
 		<developerConnection>scm:svn:https://liquid-relay-sonic-interceptor.googlecode.com/svn/trunk/</developerConnection>
 		<url>https://liquid-relay-sonic-interceptor.googlecode.com/svn/trunk/</url>
 	</scm>
-  <build>
+	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -21,35 +22,55 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-release-plugin</artifactId>	
+				<artifactId>maven-release-plugin</artifactId>
 				<version>2.0-beta-7</version>
-  	                <configuration>  	                
-  	                    <autoVersionSubmodules>true</autoVersionSubmodules>  	                    
-  	                    <remoteTagging>true</remoteTagging>
-  	                    <resume>false</resume>  	                    
-  	                    <tagBase>https://liquid-relay-sonic-interceptor.googlecode.com/svn/tags/</tagBase>  	                    
- 	                </configuration>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<remoteTagging>true</remoteTagging>
+					<resume>false</resume>
+					<tagBase>https://liquid-relay-sonic-interceptor.googlecode.com/svn/tags/</tagBase>
+				</configuration>
 			</plugin>
 			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-surefire-plugin</artifactId>
-			    <version>2.14.1</version>
-			    <dependencies>
-			      <dependency>
-			        <groupId>org.apache.maven.surefire</groupId>
-			        <artifactId>surefire-junit47</artifactId>
-			        <version>2.14.1</version>
-			      </dependency>
-			    </dependencies>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.14.1</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-junit47</artifactId>
+						<version>2.14.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>jar-with-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<finalName>sonic-interceptor</finalName>
+        			<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-  
-  <dependencies>  
-  		<dependency>
+
+	<dependencies>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -61,60 +82,44 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-oxm</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-  		<dependency>
-  			<groupId>com.sonicsw</groupId>
+			<groupId>com.sonicsw</groupId>
 			<artifactId>xq_core</artifactId>
-			<version>8.0</version>		
-  		</dependency>
-  		<dependency>
-			<groupId>com.pte.liquid</groupId>
-			<artifactId>RelayInterfaces</artifactId>
-			<version>0.1.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/RelayInterfaces-0.1.1.jar</systemPath>
+			<version>8.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.pte.liquid</groupId>
+			<groupId>com.sonicsw</groupId>
+			<artifactId>sonic_Client</artifactId>
+			<version>8.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.pte.liquid.relay</groupId>
 			<artifactId>RelayApi</artifactId>
-			<version>0.0.8</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/RelayApi-0.0.8.jar</systemPath>
+			<version>0.0.10-SNAPSHOT</version>
 		</dependency>
-		
+
 		<!-- APACHE -->
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-all</artifactId>
-			<version>${activemq.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.xbean</groupId>
-			<artifactId>xbean-spring</artifactId>
-			<version>${xbean.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
+			<scope>provided</scope>
 		</dependency>
 
-  </dependencies>
-  
-  <properties>
+	</dependencies>
+
+	<properties>
 		<spring.version>3.0.4.RELEASE</spring.version>
 		<junit.version>4.8.1</junit.version>
 		<log4j.version>1.2.17</log4j.version>
 		<activemq.version>5.7.0</activemq.version>
-		<xbean.version>3.14</xbean.version>
 	</properties>
-  
-  	<distributionManagement>
+
+	<distributionManagement>
 		<repository>
 			<id>pte-releases</id>
 			<name>internal releases</name>
