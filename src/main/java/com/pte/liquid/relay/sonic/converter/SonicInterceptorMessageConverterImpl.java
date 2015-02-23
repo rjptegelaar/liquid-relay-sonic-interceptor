@@ -52,7 +52,7 @@ public class SonicInterceptorMessageConverterImpl implements Converter<XQMessage
             
             newMsg.createPart(label, content);     
             newMsg.setSnapshotTime(new Date());
-            
+            newMsg.setSnapshotTimeMillis(new Date().getTime());
         }
 		
 		Iterator<String> xqMsgHeaders = xqMsg.getHeaderNames();
