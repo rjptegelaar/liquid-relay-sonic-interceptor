@@ -8,9 +8,9 @@
 	<url>http://www.paultegelaar.nl</url>
 
 	<scm>
-		<connection>scm:svn:https://liquid-relay-sonic-interceptor.googlecode.com/svn/trunk/</connection>
-		<developerConnection>scm:svn:https://liquid-relay-sonic-interceptor.googlecode.com/svn/trunk/</developerConnection>
-		<url>https://liquid-relay-sonic-interceptor.googlecode.com/svn/trunk/</url>
+		<connection>scm:git:https://github.com/rjptegelaar/liquid-relay-sonic-interceptor.git</connection>
+		<developerConnection>scm:git:https://github.com/rjptegelaar/liquid-relay-sonic-interceptor.git</developerConnection>
+		<url>https://github.com/rjptegelaar/liquid-relay-sonic-interceptor.git</url>
 	</scm>
 	<build>
 		<plugins>
