@@ -86,7 +86,7 @@
 		<dependency>
 			<groupId>com.sonicsw</groupId>
 			<artifactId>xq_core</artifactId>
-			<version>8.0</version>
+			<version>8.5</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
