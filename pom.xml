@@ -58,7 +58,7 @@
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
 					<finalName>sonic-interceptor</finalName>
-        			<appendAssemblyId>false</appendAssemblyId>
+					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 			</plugin>
 		</plugins>
