@@ -108,7 +108,7 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 					//Set order on log message
 					preMsg.setOrder(order);
 					//Set ESB type
-					preMsg.setSystemHeader(Constants.ESB_TYPE_PROPERTY_NAME, ESB_TYPE_PROPERTY_VALUE);
+					preMsg.setHeader(Constants.ESB_TYPE_PROPERTY_NAME, ESB_TYPE_PROPERTY_VALUE);
 					
 					if(logger.isDebugLoggingEnabled())
 						logger.logDebug(preMsg.toString());
