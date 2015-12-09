@@ -84,18 +84,31 @@
 			<artifactId>spring-context</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.sonicsw</groupId>
 			<artifactId>xq_core</artifactId>
 			<version>8.5</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency> -->
 		<dependency>
+            <groupId>com.progress.sonic.esb</groupId>
+            <artifactId>xq_core</artifactId>
+            <version>8.5.0</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+		<!-- <dependency>
 			<groupId>com.sonicsw</groupId>
 			<artifactId>sonic_Client</artifactId>
 			<version>8.5</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency> -->
+		  <dependency>
+		      <groupId>com.progress.sonic.mq</groupId>
+		      <artifactId>sonic_Client</artifactId>
+		      <version>8.5.0</version>
+		      <scope>provided</scope>
+		    </dependency>
 		<dependency>
 			<groupId>com.pte.liquid.relay</groupId>
 			<artifactId>RelayApi</artifactId>
