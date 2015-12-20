@@ -96,12 +96,11 @@
 			<version>8.5</version>
 			<scope>provided</scope>
 		</dependency>
-		  <dependency>
-		      <groupId>com.progress.sonic.mq</groupId>
-		      <artifactId>sonic_Client</artifactId>
-		      <version>8.5.0</version>
-		      <scope>provided</scope>
-		    </dependency>
+		<dependency>
+			<groupId>com.pte.liquid.relay</groupId>
+			<artifactId>liquid-legacy-async</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>com.pte.liquid.relay</groupId>
 			<artifactId>RelayApi</artifactId>

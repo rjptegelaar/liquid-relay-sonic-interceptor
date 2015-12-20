@@ -14,6 +14,7 @@
 package com.pte.liquid.relay.sonic.interceptor;
 
 import java.lang.reflect.Method;
+
 import java.util.Iterator;
 import java.util.UUID;
 
@@ -49,7 +50,7 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 		logger = XQLogImpl.getInstance();
 		logger.logDebug("Init Liquid interceptor.");
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("com.pte.liquid.relay.sonic/application-context.xml");        
-		transport = (Transport) appCtx.getBean("relayApiStompTransport");
+		transport = (Transport) appCtx.getBean("legacyAcyncTransport");
 		if(transport!=null)
 		logger.logDebug("Done initializing transport.");
 		converter = (Converter<XQMessage>) appCtx.getBean("relaySonicConverter");
@@ -65,9 +66,13 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 		
 		if (name.equals("service")) {
 			return adviseService(invocation, (XQServiceContext) args[0]);
-		}else
+		} else if(name.equals("destroy")){			
+			transport.destroy();
+			return invocation.proceed();
+		} else {			
 			return invocation.proceed();
 		}
+	}
 
 	public Object adviseService(MethodInvocation invocation,
 			XQServiceContext context) throws Throwable {
@@ -77,7 +82,7 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 		
 		try {
 			
-			if (context != null) {
+			if (context != null) {				
 				try {
 					message = context.getFirstIncoming().getMessage();					
 					
