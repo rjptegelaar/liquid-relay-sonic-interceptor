@@ -14,7 +14,6 @@
 package com.pte.liquid.relay.sonic.interceptor;
 
 import java.lang.reflect.Method;
-
 import java.util.Iterator;
 import java.util.UUID;
 
@@ -34,6 +33,7 @@ import com.sonicsw.xq.XQLog;
 import com.sonicsw.xq.XQMessage;
 import com.sonicsw.xq.XQMessageException;
 import com.sonicsw.xq.XQParameters;
+import com.sonicsw.xq.XQProcessContext;
 import com.sonicsw.xq.XQServiceContext;
 import com.sonicsw.xqimpl.util.log.XQLogImpl;
 
@@ -131,21 +131,27 @@ public class SonicInterceptorImpl implements MethodInterceptor{
 			
 			rval = invocation.proceed();
 			// add post-invocaton custom code here
-									
-			Iterator<XQAddress> addresses  = context.getProcessContext().getNextAddresses();
-			while(addresses.hasNext()){
-				XQAddress address = addresses.next();
-				if(XQConstants.ADDRESS_ENDPOINT == address.getType() || XQConstants.ADDRESS_REPLY_TO == address.getType()){								
-					while(context.hasNextIncoming()){									
-						XQEnvelope env = context.getNextIncoming();
-						message = env.getMessage();
-						message.setStringHeader(Constants.CORRELATION_ID_PROPERTY_NAME, correlationID);
-					}													
-				}									
-			}
 			
 			
-
+			
+			if(context!=null){
+				XQProcessContext processContext = context.getProcessContext();
+				if(processContext!=null){
+					Iterator<XQAddress> addresses = processContext.getNextAddresses();
+					if(addresses!=null){
+						while(addresses.hasNext()){
+							XQAddress address = addresses.next();
+							if(XQConstants.ADDRESS_ENDPOINT == address.getType() || XQConstants.ADDRESS_REPLY_TO == address.getType()){								
+								while(context.hasNextIncoming()){									
+									XQEnvelope env = context.getNextIncoming();
+									message = env.getMessage();
+									message.setStringHeader(Constants.CORRELATION_ID_PROPERTY_NAME, correlationID);
+								}													
+							}									
+						}
+					}
+				}
+			}					
 			return rval;
 		} catch (Throwable ex) {
 			throw ex;
