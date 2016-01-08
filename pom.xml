@@ -16,7 +16,7 @@
 	<parent>
 		<groupId>com.pte.liquid.relay</groupId>
 		<artifactId>liquid-parent</artifactId>
-		<version>0.0.2-SNAPSHOT</version>
+		<version>0.0.3</version>
 	</parent>
 	<build>
 		<plugins>
@@ -99,12 +99,12 @@
 		<dependency>
 			<groupId>com.pte.liquid.relay</groupId>
 			<artifactId>liquid-legacy-async</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.pte.liquid.relay</groupId>
 			<artifactId>RelayApi</artifactId>
-			<version>0.1.4-SNAPSHOT</version>
+			<version>0.1.4</version>
 		</dependency>
 
 		<!-- APACHE -->
