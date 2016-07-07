@@ -1,8 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.pte.liquid.relay</groupId>
 	<artifactId>liquid-relay-sonic-interceptor</artifactId>
-	<version>0.0.10-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>liquid-relay-sonic-interceptor</name>
 	<url>http://www.paultegelaar.nl</url>
 
@@ -15,7 +16,7 @@
 	<parent>
 		<groupId>com.pte.liquid.relay</groupId>
 		<artifactId>liquid-parent</artifactId>
-		<version>0.0.3</version>
+		<version>0.0.4</version>
 	</parent>
 	<build>
 		<plugins>
@@ -84,26 +85,28 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.sonicsw</groupId>
+			<groupId>com.progress.sonic.esb</groupId>
 			<artifactId>xq_core</artifactId>
-			<version>8.5</version>
+			<version>8.5.0</version>
+			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.sonicsw</groupId>
+			<groupId>com.progress.sonic.mq</groupId>
 			<artifactId>sonic_Client</artifactId>
-			<version>8.5</version>
+			<version>8.5.0</version>
+			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.pte.liquid.relay</groupId>
 			<artifactId>liquid-legacy-async</artifactId>
-			<version>0.0.1</version>
+			<version>0.0.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.pte.liquid.relay</groupId>
 			<artifactId>RelayApi</artifactId>
-			<version>0.1.4</version>
+			<version>0.1.6-SNAPSHOT</version>
 		</dependency>
 
 		<!-- APACHE -->
@@ -132,4 +135,17 @@
 			<url>${snapshots-url}</url>
 		</snapshotRepository>
 	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>bintray</id>
+			<url>http://dl.bintray.com/paultegelaar/maven</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>
