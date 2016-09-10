@@ -9,7 +9,7 @@
 		<connection>scm:git:https://github.com/rjptegelaar/liquid-relay-sonic-interceptor.git</connection>
 		<developerConnection>scm:git:git@github.com:rjptegelaar/liquid-relay-sonic-interceptor.git</developerConnection>
 		<url>https://github.com/rjptegelaar/liquid-relay-sonic-interceptor.git</url>
-		<tag>liquid-relay-sonic-interceptor-0.0.1</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<parent>
 		<groupId>com.pte.liquid.relay</groupId>
@@ -118,9 +118,8 @@
 
 	<distributionManagement>
 		<repository>
-			<id>pte-releases</id>
-			<name>internal releases</name>
-			<url>${releases-url}</url>
+			<id>bintray</id>
+			<url>https://api.bintray.com/maven/paultegelaar/maven/liquid-relay-sonic-interceptor</url>
 		</repository>
 		<snapshotRepository>
 			<id>pte-snapshots</id>
@@ -129,16 +128,4 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-	<repositories>
-		<repository>
-			<id>bintray</id>
-			<url>http://dl.bintray.com/paultegelaar/maven</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 </project>
