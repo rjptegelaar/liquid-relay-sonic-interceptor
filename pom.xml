@@ -1,8 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>	<artifactId>liquid-relay-sonic-interceptor</artifactId>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>liquid-relay-sonic-interceptor</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
-	<name>liquid-relay-sonic-interceptor</name>
-
+	<name>${project.groupId}:${project.artifactId}</name>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
 
 	<scm>
 		<connection>scm:git:https://github.com/rjptegelaar/liquid-relay-sonic-interceptor.git</connection>
@@ -13,7 +19,7 @@
 	<parent>
 		<groupId>com.pte.liquid.relay</groupId>
 		<artifactId>liquid-parent</artifactId>
-		<version>0.0.7</version>
+		<version>1.0.0</version>
 	</parent>
 	<build>
 		<plugins>
@@ -61,6 +67,24 @@
 					<finalName>sonic-interceptor</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+						<configuration>
+							<keyname>paultegelaar</keyname>
+							<passphrase>${gpg-passphrase}</passphrase>
+
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -127,4 +151,23 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<url>https://github.com/rjptegelaar/liquid-relay-sonic-interceptor</url>
+	<description>Liquid interceptor for Sonic ESB. Is used for the monitoring of message flows through Sonic ESB.</description>
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Paul Tegelaar</name>
+			<email>tegelaarpaul@gmail.com</email>
+			<organization>Paul Tegelaar</organization>
+			<organizationUrl>http://www.paultegelaar.nl</organizationUrl>
+		</developer>
+	</developers>
+
+	<groupId>nl.paultegelaar.liquid.relay</groupId>
 </project>
