@@ -16,9 +16,9 @@
 		<tag>HEAD</tag>
 	</scm>
 	<parent>
-		<groupId>com.pte.liquid.relay</groupId>
+		<groupId>nl.paultegelaar.liquid.relay</groupId>
 		<artifactId>liquid-parent</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 	</parent>
 	<build>
 		<plugins>
@@ -119,14 +119,14 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.pte.liquid.relay</groupId>
+			<groupId>nl.paultegelaar.liquid.relay</groupId>
 			<artifactId>liquid-legacy-async</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2</version>
 		</dependency>
 		<dependency>
-			<groupId>com.pte.liquid.relay</groupId>
+			<groupId>nl.paultegelaar.liquid.relay</groupId>
 			<artifactId>RelayApi</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2</version>
 		</dependency>
 
 		<!-- TEST -->
