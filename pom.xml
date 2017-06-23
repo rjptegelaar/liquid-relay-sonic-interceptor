@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>liquid-relay-sonic-interceptor</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	
 	<properties>
@@ -13,7 +13,7 @@
 		<connection>scm:git:https://github.com/rjptegelaar/liquid-relay-sonic-interceptor.git</connection>
 		<developerConnection>scm:git:git@github.com:rjptegelaar/liquid-relay-sonic-interceptor.git</developerConnection>
 		<url>https://github.com/rjptegelaar/liquid-relay-sonic-interceptor.git</url>
-		<tag>HEAD</tag>
+		<tag>liquid-relay-sonic-interceptor-1.0.2</tag>
 	</scm>
 	<parent>
 		<groupId>nl.paultegelaar.liquid.relay</groupId>
